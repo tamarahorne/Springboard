@@ -5,7 +5,7 @@
 
 Nashville, TN built a 2.1 million square foot convention center in 2013 to host both local and international events, but limited public transportation options are available between the convention center and the airport.   The Nashville Department of Transportation and Multimodal Infrastructure is considering adding additional public transportation between the two to help reduce the pressure on the congested roadways.  They would like to understand the safety risk implications of doing so as part of their decision-making process.  
 
-Using tree based models on three different aggregations, I was able to achieve R Squared values of 0.99, 0.83, and 0.94 respectively. (MAPE was not possible for all models.) These models and aggregations provide insight into the most important features influencing the safety risk for the nation as a whole, those influencing the safety risk of individual locations, and those influencing the safety risk of each of the modes.
+Using XGBoost Regressor on data aggregated to the date and the nation as a whole, I was able to achieve a MAPE of 4.8%. I tested four models on data aggregated to date and individual locations, and then also aggregated to date and individual modes, and evaluated the best models based on MAE and RMSE since MAPE was not available due to division by zero.  These models and aggregations provide insight into the most important features influencing the safety risk for the nation as a whole, those influencing the safety risk of individual locations, and those influencing the safety risk of each of the modes.
 
 The resulting recommendation is that in terms of safety risk, Nashville would be better served by increasing service to one of its existing modes instead of adding an additional mode of transportation like light rail. 
 
@@ -27,7 +27,7 @@ I utilized three different aggregations to learn about the features influencing 
 
 ## Modeling
 
-I tried four regression models on each of the three aggregations.  XGBoost Regressor was the top performing model for modeling_df (MAPE: 4.8%; R^2: 0.99). It also gave the best R^2 for modeling_df3 (R^2: 0.94), but K Neighbors had teh best MAE (MAE: 0.591).  MAPE was not possible due to zeros in the target leading to division by zero.  Random Forest Regressor was the top performing model for modeling_df2 in terms of R^2 (R^2: 0.83), but K Neighbors again had the lowest MAE (MAE: 0.395). MAPE was again not possible due to division by zero.  
+I tried four regression models on each of the three aggregations.  XGBoost Regressor was the top performing model for modeling_df (MAPE: 4.8%). MAPE was not possible for the second and third aggregation due to zeros in the target leading to division by zero.  K Neighbors Regressor was the top performing model for modeling_df2 in with a MAE of 0.395, but XGBoost also performed well with an MAE of 0.454. For the third aggregation, K Neighbors Regressor again has the best MAE (0.591) and also the best RMSE.  Randome Forest took second with an MAE of 0.680.  
 
 ## Recommendations
 
